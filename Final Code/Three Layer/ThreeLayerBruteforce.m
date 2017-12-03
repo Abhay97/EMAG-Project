@@ -39,8 +39,8 @@ n2End = 3;
 n3Start = 1;
 n3End = 3;
 
-LambdaStart = 400;
-LambdaEnd = 1400;
+LambdaStart = 200;
+LambdaEnd = 2200;
 
 StepSize = 0.4;
 Iteration = 0;
@@ -164,12 +164,15 @@ end
 plot(LambdaStart:LambdaEnd,BestReflec *100);
 % plot(LambdaStart:LambdaEnd, StoreReflectancebaseline);
 
-title('Reflectivity vs Wavelength');
+title('Reflectance vs Wavelength');
 xlabel('Wavelength') ;% x-axis label
 ylabel('Reflectance, %') ;% y-axis label
 
-a = num2str(sum(StorePWR));
-b= 'Total Power in Watts = ' ;
-h = msgbox(strcat(b,a) ,'DONE!');
+FoundN1 =strcat('N1 = ',num2str(bN1));
+FoundN2 =strcat('N2 = ',num2str(bN2));
+FoundN3 =strcat('N3 = ',num2str(bN3));
+
+FoundPWR = strcat('Total Power in Watts = ' ,num2str(sum(StorePWR)));
+h = msgbox({FoundPWR FoundN1 FoundN2 FoundN3},'DONE!');
 
 

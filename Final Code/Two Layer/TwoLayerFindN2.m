@@ -1,5 +1,4 @@
-%%%% GOAL IS TO find power production across every lambda given N2 from
-%%%% previous
+%%%% GOAL IS TO FIND minimal reflectance at various N2
 
 %close previous windows%
 close all; 
@@ -15,21 +14,16 @@ j = 1j;          %sets immaginary numbers as j
 nAIR = 1 ;    %refractive index of air
 nSolar = 3.5;   % refractive index of solar cell
 N1 = 1.4;    % refractive index layer 1
-N2 = 2.62;      %  ''             layer 2
+N2 = 0.01;      %  ''             layer 2
 c = physconst('LightSpeed'); % speed of light
 
 StoreN2 = [];
 
 StoreReflectance = [];
-LambdaC = 650;
-Lambda = 200;
-StoreLambda = [];
-StorePWR = [];
+   
 
-
-%%this creates a reflectivity vs Wavelength graph with the given calculation
-while Lambda <= 2200
-    StoreLambda = [StoreLambda Lambda];
+while N2 < 4.5
+    StoreN2 = [StoreN2 N2];
     
     %%%material parameters%%%
     
@@ -53,8 +47,8 @@ while Lambda <= 2200
     Lthick = lambdaC/4; %
 
         %%Deltas
-    Delta1 = (pi/2)*(Lambda/LambdaC);
-    Delta2 = (pi/2)*(Lambda/LambdaC);
+    Delta1 = (pi/2);
+    Delta2 = (pi/2);
 
 
     %%Transfer Matrix
@@ -68,19 +62,20 @@ while Lambda <= 2200
     Tau = 1/T(1,1);
     Reflectance = (abs(Gamma))^2;
     
+  
     StoreReflectance = [StoreReflectance Reflectance];
-    Trans = ((abs(Tau))^2)/(nAIR/nSolar);
-    IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
-    Lambda = Lambda+1;
-    Power = Trans * IRRAD;
-    StorePWR = [StorePWR Power];
     
+    N2 = N2+0.01;
 end
-plot(StoreLambda, StoreReflectance*100);
-title('Reflectivity vs Wavelength');
-xlabel('Wavelength') ;% x-axis label
-ylabel('Reflectance %') ;% y-axis label
 
-a = num2str(sum(StorePWR));
-b= 'Total Power in Watts = ' ;
-h = msgbox(strcat(b,a) ,'DONE!');
+[MinX,MinY] = min(StoreReflectance);
+plot(StoreN2, StoreReflectance);
+title('optimal N2 at lambdaC  = 650');
+xlabel('N2 Value') ;% x-axis label
+ylabel('Reflectance') ;% y-axis label
+
+minN2 = StoreN2(MinY);
+a = num2str(minN2);
+b= 'Minimum Reflectance found at N2 =' ;
+
+h = msgbox({strcat(b,a)  'When N1 is kept at 1.4'},'DONE!');

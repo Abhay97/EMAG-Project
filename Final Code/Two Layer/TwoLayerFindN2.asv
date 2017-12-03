@@ -1,4 +1,4 @@
-%%%% GOAL IS TO FIND OPTIMAL refN2
+%%%% GOAL IS TO FIND minimal reflectance at various N2
 
 %close previous windows%
 close all; 
@@ -14,7 +14,7 @@ j = 1j;          %sets immaginary numbers as j
 nAIR = 1 ;    %refractive index of air
 nSolar = 3.5;   % refractive index of solar cell
 N1 = 1.4;    % refractive index layer 1
-N2 = 0;      %  ''             layer 2
+N2 = 0.01;      %  ''             layer 2
 c = physconst('LightSpeed'); % speed of light
 
 StoreN2 = [];
@@ -77,4 +77,5 @@ ylabel('Reflectance') ;% y-axis label
 minN2 = StoreN2(MinY);
 a = num2str(minN2);
 b= 'Minimum Reflectance found at N2 =' ;
-h = msgbox(strcat(b,a) ,'DONE!');
+
+h = msgbox({strcat(b,a)  'N1 = 1.4' strcat},'DONE!');
