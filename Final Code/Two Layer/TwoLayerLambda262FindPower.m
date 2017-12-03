@@ -18,6 +18,7 @@ N1 = 1.4;    % refractive index layer 1
 N2 = 2.62;      %  ''             layer 2
 c = physconst('LightSpeed'); % speed of light
 
+StoreT = [];
 StoreN2 = [];
 
 StoreReflectance = [];
@@ -34,9 +35,9 @@ while Lambda <= 1400
     %%%material parameters%%%
     
     %reflection coeffs - gamma
-    r01 = (nAIR - N1)/(nAIR + N1);
-    r12 = (N1 - N2)/(N1 + N2);
-    r2S = (N2 - nSolar)/(N2 + nSolar); % to solar cell
+    r01 = (nAIR - N1)/(nAIR + N1)
+    r12 = (N1 - N2)/(N1 + N2)
+    r2S = (N2 - nSolar)/(N2 + nSolar) % to solar cell
 
         %transmission coeffs - tau
     t01 = 2*(nAIR)/(nAIR +N1);
@@ -64,15 +65,18 @@ while Lambda <= 1400
     T = Q01*P1*Q12*P2*Q2S;
     
     
-    Gamma = T(2,1)/T(1,1);
+    Gamma = T(2,1)/T(1,1)
     Tau = 1/T(1,1);
     Reflectance = (abs(Gamma))^2;
     
-
+    StoreT = [StoreT T];
+    StoreTau = [StoreTau Tau];
+    StoreGamma  = [StoreGamma Gamma];
     StoreReflectance = [StoreReflectance Reflectance];
     Trans = ((abs(Tau))^2)/(nAIR/nSolar);
-
+    StoreTRANS = [StoreTRANS Trans];
     IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
+    StoreIRRAD = [StoreIRRAD IRRAD];
     Lambda = Lambda+1;
     Power = Trans * IRRAD;
     StorePWR = [StorePWR Power];

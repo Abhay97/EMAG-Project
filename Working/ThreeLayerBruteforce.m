@@ -162,8 +162,6 @@ end
 
 
 plot(LambdaStart:LambdaEnd,BestReflec);
-% plot(LambdaStart:LambdaEnd, StoreReflectancebaseline);
-
 title('Reflectivity vs Wavelength');
 xlabel('Wavelength') ;% x-axis label
 ylabel('Reflectivity') ;% y-axis label
