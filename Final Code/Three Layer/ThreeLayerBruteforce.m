@@ -161,12 +161,12 @@ end
 
 
 
-plot(LambdaStart:LambdaEnd,BestReflec);
+plot(LambdaStart:LambdaEnd,BestReflec *100);
 % plot(LambdaStart:LambdaEnd, StoreReflectancebaseline);
 
 title('Reflectivity vs Wavelength');
 xlabel('Wavelength') ;% x-axis label
-ylabel('Reflectivity') ;% y-axis label
+ylabel('Reflectance, %') ;% y-axis label
 
 a = num2str(sum(StorePWR));
 b= 'Total Power in Watts = ' ;

@@ -161,13 +161,15 @@ end
 
 
 
-plot(LambdaStart:LambdaEnd,BestReflec);
-title('Reflectivity vs Wavelength');
+plot(LambdaStart:LambdaEnd,BestReflec*100);
+title('Reflectance vs Wavelength');
 xlabel('Wavelength') ;% x-axis label
-ylabel('Reflectivity') ;% y-axis label
+ylabel('Reflectance %') ;% y-axis label
 
-a = num2str(sum(StorePWR));
-b= 'Total Power in Watts = ' ;
-h = msgbox(strcat(b,a) ,'DONE!');
+FoundN1 =strcat('N1 = ',num2str(bN1));
+FoundN2 =strcat('N2 = ',num2str(bN2));
+FoundN3 =strcat('N3 = ',num2str(bN3));
 
+FoundPWR = strcat('Total Power in Watts = ' ,num2str(sum(StorePWR)));
 
+msg = msgbox({FoundN1 FoundN2 FoundN3 FoundPWR},'DONE!');

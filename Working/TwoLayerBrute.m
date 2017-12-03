@@ -120,12 +120,13 @@ for Iteration  = 0:+1:MaxIteration
     elseif StepSize == 0.03
         StepSize = 0.01;
     end
+    
 end
 
-plot(LambdaStart:LambdaEnd,BestReflec);
-title('Reflectivity vs Wavelength, Two Layer');
+plot(LambdaStart:LambdaEnd,BestReflec*100);
+title('Reflectance vs Wavelength, Two Layer');
 xlabel('Wavelength') ;% x-axis label
-ylabel('Reflectivity') ;% y-axis label
+ylabel('Reflectance %') ;% y-axis label
 
 
 FoundN1 =strcat('N1 = ',num2str(bN1));

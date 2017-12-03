@@ -89,10 +89,10 @@ for Lambda = 400: +1 :1400
     Power = Trans * IRRAD;
     StorePWR = [StorePWR Power];
 end
-plot(StoreLambda, StoreReflectance);
+plot(StoreLambda, StoreReflectance*100);
 title('Reflectivity vs Wavelength');
 xlabel('Wavelength') ;% x-axis label
-ylabel('Reflectivity') ;% y-axis label
+ylabel('Reflectance, %') ;% y-axis label
 
 a = num2str(sum(StorePWR));
 b= 'Total Power in Watts = ' ;
