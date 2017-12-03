@@ -42,9 +42,10 @@ n3End = 3;
 LambdaStart = 400;
 LambdaEnd = 1400;
 
-StepSize = 0.2;
+StepSize = 0.4;
 Iteration = 0;
-StoreReflctanceBEST = [];
+
+BestReflec = [];
 
 MaxIteration = 5;
 
@@ -105,9 +106,9 @@ for Iteration = 0:+1:MaxIteration
                     Reflectance = (abs(Gamma))^2;
                     
                     %%at the final iteration, it stores the reflectance
-                    %                     if Iteration == MaxIteration
-                    %                         StoreReflctanceBEST = [StoreReflctanceBEST Reflectance];
-                    %                     end
+                                        if Iteration == MaxIteration
+                                            BestReflec = [BestReflec Reflectance];
+                                        end
                     
                     Trans = ((abs(Tau))^2)/(nAIR/nSolar);
                     IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
@@ -148,7 +149,7 @@ for Iteration = 0:+1:MaxIteration
     
     %%change step sizes%%
      if StepSize == 0.4
-        StepSize = 0.4;
+        StepSize = 0.2;
      elseif StepSize == 0.2
         StepSize = 0.1;
     elseif StepSize == 0.1
@@ -159,17 +160,17 @@ for Iteration = 0:+1:MaxIteration
         StepSize = 0.01;
     end
     
-    %     if Iteration == 3
-    %
-    %         plot(LambdaStart:LambdaEnd, StoreReflectanceBEST);
-    %         title('Reflectivity vs Wavelength');
-    %         xlabel('Wavelength') ;% x-axis label
-    %         ylabel('Reflectivity') ;% y-axis label
-    %
-    %         a = num2str(sum(StorePWR));
-    %         b= 'Total Power in Watts = ' ;
-    %         h = msgbox(strcat(b,a) ,'DONE!');
-    %     end
+        if Iteration == MaxIteration
+    
+            plot(LambdaStart:LambdaEnd, BestReflec);
+            title('Reflectivity vs Wavelength');
+            xlabel('Wavelength') ;% x-axis label
+            ylabel('Reflectivity') ;% y-axis label
+    
+            a = num2str(sum(StorePWR));
+            b= 'Total Power in Watts = ' ;
+            h = msgbox(strcat(b,a) ,'DONE!');
+        end
 end
 
 
