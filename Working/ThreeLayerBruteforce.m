@@ -147,13 +147,15 @@ for Iteration = 0:+1:MaxIteration
     n3End = LowResN3 + StepSize*2;
     
     %%change step sizes%%
-    if StepSize == 0.2
+     if StepSize == 0.4
+        StepSize = 0.4;
+     elseif StepSize == 0.2
         StepSize = 0.1;
     elseif StepSize == 0.1
         StepSize = 0.05;
     elseif StepSize == 0.05
-        StepSize = 0.025;
-    elseif StepSize == 0.025
+        StepSize = 0.03;
+    elseif StepSize == 0.03
         StepSize = 0.01;
     end
     
