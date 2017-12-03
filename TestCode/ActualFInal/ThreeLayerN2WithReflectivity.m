@@ -77,7 +77,7 @@ end
 plot(StoreN2, StoreReflectance);
 title('optimal N2 at lambdaC  = 650');
 xlabel('N2 Value') ;% x-axis label
-ylabel('Refractivity') ;% y-axis label
+ylabel('Reflectivity') ;% y-axis label
 
 minN2 = StoreN2(MinY);
 a = num2str(minN2);
