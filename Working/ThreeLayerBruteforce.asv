@@ -28,19 +28,36 @@ StoreN2 = [];
 StoreN3 = [];
 
 
+%%setting start conditions for looping structures%%
 
-for iteration = 1:+1:4
-for N1 = 1: +0.2 : 3
-    disp(N1/3);
-    for N2 = 1: +0.2: 3
-        for N3 = 1:0.2 :3
-              if Iteration == 4
-                  
-              end
+n1Start = 1;
+n1End = 3;
+
+n2Start = 1;
+n2End = 3;
+
+n3Start = 1;
+n3End = 3;
+
+LambdaStart = 400;
+LambdaEnd = 1400;
+
+StepSize = 0.2;
+Iteration = 0;
+StoreReflctanceBEST = [];
+
+
+
+for iteration = 0:+1:4
+    disp(Iteration);
+    for N1 = n1Start: +StepSize : n1End
+        for N2 = n2Start: +StepSize: n2End
+            for N3 = n3Start:+StepSize:n3End
+                StorePWR = [];
+            end
         end
     end
-end
-
+    
 end
 
 
