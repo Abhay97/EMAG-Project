@@ -145,7 +145,7 @@ end
 plot(LambdaStart:LambdaEnd,BestReflec*100); %plotting reflectance vs wavelengths
 title('Reflectivity vs Wavelength, Two Layer');
 xlabel('Wavelength') ;% x-axis label
-ylabel('Reflectivity %') ;% y-axis label
+ylabel('Reflectance %') ;% y-axis label
 
 
 FoundN1 =strcat('N1 = ',num2str(bN1));
