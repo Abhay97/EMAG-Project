@@ -27,10 +27,8 @@ P2 = [exp(j*Delta2) 0 ; 0 exp(-j*Delta2)];
 P1 = [exp(j*Delta1) 0 ; 0 exp(-j*Delta1)];
 P2 = [exp(j*Delta2) 0 ; 0 exp(-j*Delta2)];
 
-partialT1= [1 -r01; r01 -1]*[1 -r12; r12 -1]*[1 r2S ; r2S 1]
-
-
-% eqn = partialT1(2,1) == 0; %%design condition that T21 =0
+partialT1= [1 -r01; r01 -1]*[1 -r12; r12 -1]*[1 r2S ; r2S 1];
 sol = solve(partialT1(2,1)==0, N2);
 
-
+disp('N2 = ')
+disp(sol(1));
