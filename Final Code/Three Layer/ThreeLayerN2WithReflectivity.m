@@ -73,13 +73,13 @@ while N2 < 4.5
     N2 = N2+0.01;
 end
 
-[MinX,MinY] = min(StoreReflectance*100);
-plot(StoreN2, StoreReflectance);
+[MinX,MinY] = min(StoreReflectance);
+plot(StoreN2, StoreReflectance*100);
 title('optimal N2 at lambdaC  = 650');
 xlabel('N2 Value') ;% x-axis label
-ylabel('Refletance') ;% y-axis label
+ylabel('Refletance %') ;% y-axis label
 
 minN2 = StoreN2(MinY);
 a = num2str(minN2);
 b= 'Minimum Reflectance found at N2 =' ;
-h = msgbox(strcat(b,a) ,'DONE!');
+h = msgbox({'N1 = 1.4' strcat(b,a) 'N3 = 3.15'},'DONE!');

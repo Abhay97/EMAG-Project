@@ -69,14 +69,10 @@ while Lambda <= 1400
     Tau = 1/T(1,1);
     Reflectance = (abs(Gamma))^2;
     
-    StoreT = [StoreT T];
-    StoreTau = [StoreTau Tau];
-    StoreGamma  = [StoreGamma Gamma];
+
     StoreReflectance = [StoreReflectance Reflectance];
     Trans = ((abs(Tau))^2)/(nAIR/nSolar);
-    StoreTRANS = [StoreTRANS Trans];
     IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
-    StoreIRRAD = [StoreIRRAD IRRAD];
     Lambda = Lambda+1;
     Power = Trans * IRRAD;
     StorePWR = [StorePWR Power];

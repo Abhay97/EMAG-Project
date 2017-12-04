@@ -33,7 +33,7 @@ StoreTRANS = [];
 StorePWR = [];
 
 
-for Lambda = 400: +1 :1400
+for Lambda = 200: +1 :2200
     StoreLambda = [StoreLambda Lambda];
     %%%material parameters%%%
     

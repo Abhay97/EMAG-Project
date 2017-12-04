@@ -39,8 +39,8 @@ n2End = 3;
 n3Start = 1;
 n3End = 3;
 
-LambdaStart = 200;
-LambdaEnd = 2200;
+LambdaStart = 400;
+LambdaEnd = 1400;
 
 StepSize = 0.4;
 Iteration = 0;
