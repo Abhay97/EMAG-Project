@@ -47,6 +47,21 @@ StepSize = 0.4; %the amount refractive indexes are increased at each iteration
 Iteration = 0;
 MaxIteration = 5; %number of total iterations
 
+% user prompt to select lambda range%
+prompt={'Enter a value of begining Lambda'};
+name = 'LambdaStart Value';
+defaultans = {'400'};
+options.Interpreter = 'tex';
+answer = inputdlg(prompt,name,[1 40],defaultans,options);
+
+LambdaStart = str2double(cell2mat(answer))
+
+prompt={'Enter a value of ending Lambda'};
+name = 'LambdaEnd Value';
+defaultans = {'1400'};
+options.Interpreter = 'tex';
+answer = inputdlg(prompt,name,[1 40],defaultans,options);
+LambdaEnd = str2double(cell2mat(answer))
 
 for Iteration = 0:+1:MaxIteration %loop structe for iterations
     disp(Iteration); %used for my debug purposes

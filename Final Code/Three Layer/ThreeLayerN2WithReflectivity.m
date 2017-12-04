@@ -15,23 +15,22 @@ nAIR = 1 ;    %refractive index of air
 nSolar = 3.5;   % refractive index of solar cell
 N1 = 1.4;    % refractive index layer 1
 N2 = 0;      %  ''             layer 2
-N3 = 3.15;
-c = physconst('LightSpeed'); % speed of light
+N3 = 3.15; %Refractive index of layer 3
 
 
-StoreN2 = [];
-StoreReflectance = [];
+StoreN2 = []; %storage array for refractive index
+StoreReflectance = []; %storage array for reflectance
 
 
-while N2 < 4.5
-    StoreN2 = [StoreN2 N2];
+while N2 < 4.5 %%loop structue to find best N2
+    StoreN2 = [StoreN2 N2]; %create array of N2 values.
     
     %%%material parameters%%%
     
     %reflection coeffs - gamma
     r01 = (nAIR - N1)/(nAIR + N1);
     r12 = (N1 - N2)/(N1 + N2);
-    r23 = (N2 - N3)/(N2 + N3); % 
+    r23 = (N2 - N3)/(N2 + N3); %
     r3S = (N3 - nSolar)/(N3 + nSolar); % to solar cell
     
     %transmission coeffs - tau
@@ -48,38 +47,38 @@ while N2 < 4.5
     
     %%%Design parameters%%%
     lambdaC = 650;  %nm centre wavelength
-    Lthick = lambdaC/4; %
+    Lthick = lambdaC/4; % %Layer thickness, 1 quarter lambda
     
     %%Deltas
-    Delta1 = (pi/2);
+    Delta1 = (pi/2); %since it is at 650nm, Deltas are all pi/2
     Delta2 = (pi/2);
     Delta3 = (pi/2);
     
-    %%Transfer Matrix
     P1 = [exp(j*Delta1) 0 ; 0 exp(-j*Delta1)];
     P2 = [exp(j*Delta2) 0 ; 0 exp(-j*Delta2)];
     P3 = [exp(j*Delta3) 0 ; 0 exp(-j*Delta3)];
-
+    
+    %%Transfer Matrix
     
     T = Q01*P1*Q12*P2*Q23*P3*Q3S;
     
-    
-    Gamma = T(2,1)/T(1,1);
+    %computation of gamma, tau, reflectance
+    Gamma = T(2,1)/T(1,1); 
     Tau = 1/T(1,1);
     Reflectance = (abs(Gamma))^2;
     
-    StoreReflectance = [StoreReflectance Reflectance];
+    StoreReflectance = [StoreReflectance Reflectance]; %store reflectance in an array
     
-    N2 = N2+0.01;
+    N2 = N2+0.01; %increment N2 by 0.01
 end
 
-[MinX,MinY] = min(StoreReflectance);
-plot(StoreN2, StoreReflectance*100);
+[MinX,MinY] = min(StoreReflectance); %% find the minimum reflectance, and the positon in the array.
+plot(StoreN2, StoreReflectance*100); % graph of N2 vs reflectance
 title('optimal N2 at lambdaC  = 650');
 xlabel('N2 Value') ;% x-axis label
 ylabel('Refletance %') ;% y-axis label
 
-minN2 = StoreN2(MinY);
+minN2 = StoreN2(MinY); %n2 at the minimum reflectance point. 
 a = num2str(minN2);
 b= 'Minimum Reflectance found at N2 =' ;
 h = msgbox({'N1 = 1.4' strcat(b,a) 'N3 = 3.15'},'DONE!');

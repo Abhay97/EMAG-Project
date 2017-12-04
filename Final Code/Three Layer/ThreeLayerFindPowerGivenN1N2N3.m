@@ -1,5 +1,5 @@
 %%%% GOAL IS TO find power production across every lambda given N2 from
-%%%% previous
+%%%% previous "ThreeLayerN2WithReflectivity
 
 %close previous windows%
 close all; 
@@ -9,6 +9,7 @@ clear all;
 % UNITS 
 degrees = pi/180; 
 j = 1j;          %sets immaginary numbers as j 
+
 
 
 %paramaters
@@ -24,8 +25,49 @@ StoreReflectance = []; %Storing reflectances
 LambdaC = 650; %centre wavelength
 StorePWR = []; %array to store power.
 
-LambdaStart = 200; %Wavelength were looping begins
-LambdaEnd = 2200; %ending wavelength for loop
+
+
+% user prompt to select lambda range%
+prompt={'Enter a value of begining Lambda'};
+name = 'LambdaStart Value';
+defaultans = {'200'};
+options.Interpreter = 'tex';
+answer = inputdlg(prompt,name,[1 40],defaultans,options);
+
+LambdaStart = str2double(cell2mat(answer))
+
+prompt={'Enter a value of ending Lambda'};
+name = 'LambdaEnd Value';
+defaultans = {'2200'};
+options.Interpreter = 'tex';
+answer = inputdlg(prompt,name,[1 40],defaultans,options);
+LambdaEnd = str2double(cell2mat(answer))
+
+
+% user prompt to different refractive indexes
+prompt={'Enter a value for N1'};
+name = 'N1 Value';
+defaultans = {'1.4'};
+options.Interpreter = 'tex';
+answer = inputdlg(prompt,name,[1 40],defaultans,options);
+
+N1 = str2double(cell2mat(answer))
+
+prompt={'Enter a value for N2'};
+name = 'N2 Value';
+defaultans = {'2.36'};
+options.Interpreter = 'tex';
+answer = inputdlg(prompt,name,[1 40],defaultans,options);
+
+N2 = str2double(cell2mat(answer))
+
+prompt={'Enter a value for N3'};
+name = 'N3 Value';
+defaultans = {'3.15'};
+options.Interpreter = 'tex';
+answer = inputdlg(prompt,name,[1 40],defaultans,options);
+
+N3 = str2double(cell2mat(answer))
 
 for Lambda = LambdaStart: +1 : LambdaEnd %goes through TMM at each lambda between start and end
       
@@ -71,18 +113,18 @@ for Lambda = LambdaStart: +1 : LambdaEnd %goes through TMM at each lambda betwee
     Reflectance = (abs(Gamma))^2;
     
  
-    StoreReflectance = [StoreReflectance Reflectance];
-    Trans = ((abs(Tau))^2)/(nAIR/nSolar);
-    IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
-    Power = Trans * IRRAD;
-    StorePWR = [StorePWR Power];
+    StoreReflectance = [StoreReflectance Reflectance]; %array that stores all the reflectance values
+    Trans = ((abs(Tau))^2)/(nAIR/nSolar); %compute transmitance
+    IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1)); %computate irradiance
+    Power = Trans * IRRAD; %compute power
+    StorePWR = [StorePWR Power]; %storage array of total powers
 end
 
-plot(LambdaStart:LambdaEnd, StoreReflectance*100);
+plot(LambdaStart:LambdaEnd, StoreReflectance*100); %%plot relectance vs Wavelength
 title('Reflectivity vs Wavelength');
 xlabel('Wavelength') ;% x-axis label
 ylabel('Reflectance, %') ;% y-axis label
 
 a = num2str(sum(StorePWR));
 b= 'Total Power in Watts = ' ;
-h = msgbox(strcat(b,a) ,'DONE!');
+h = msgbox({strcat(b,a) strcat('N1 = ', num2str(N1)) strcat('N2 =', num2str(N2)) strcat('N3 =', num2str(N3))} ,'DONE!');

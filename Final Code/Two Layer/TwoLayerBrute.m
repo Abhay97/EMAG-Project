@@ -34,13 +34,30 @@ LambdaEnd = 2200;
 
 count = 0;
 
-for Iteration  = 0:+1:MaxIteration
-    for N1 = n1Start: +StepSize: n1End
-        for N2 = n2Start: +StepSize: n2End
-            StorePWR = [];
-            StoreN1 = [StoreN1  N1];
-            StoreN2 = [StoreN2 N2];
-            BestReflec = [];
+% user prompt to select lambda range%
+prompt={'Enter a value of begining Lambda'};
+name = 'LambdaStart Value';
+defaultans = {'200'};
+options.Interpreter = 'tex';
+answer = inputdlg(prompt,name,[1 40],defaultans,options);
+
+LambdaStart = str2double(cell2mat(answer))
+
+prompt={'Enter a value of ending Lambda'};
+name = 'LambdaEnd Value';
+defaultans = {'2200'};
+options.Interpreter = 'tex';
+answer = inputdlg(prompt,name,[1 40],defaultans,options);
+LambdaEnd = str2double(cell2mat(answer))
+
+for Iteration  = 0:+1:MaxIteration %loop structure for for multiple iterations
+    
+    for N1 = n1Start: +StepSize: n1End %loop structure for changing N1 values
+        for N2 = n2Start: +StepSize: n2End %loop structure for changing N1 values
+            StorePWR = []; %storage array for power
+            StoreN1 = [StoreN1  N1]; %adding N1 to array
+            StoreN2 = [StoreN2 N2]; %adding N1 to array
+            BestReflec = []; %storage array for holding reflectance values
             
             
             for Lambda = LambdaStart: +1 :LambdaEnd
@@ -61,19 +78,20 @@ for Iteration  = 0:+1:MaxIteration
                 
                 %%%Design parameters%%%
                 lambdaC = 650;  %nm centre wavelength
-                Lthick = lambdaC/4; %
+                Lthick = lambdaC/4; %quarter wavelength.
                 
                 %%Deltas
                 Delta1 = (pi/2)*(Lambda/LambdaC);
                 Delta2 = (pi/2)*(Lambda/LambdaC);
                 
                 
-                %%Transfer Matrix
                 P1 = [exp(j*Delta1) 0 ; 0 exp(-j*Delta1)];
                 P2 = [exp(j*Delta2) 0 ; 0 exp(-j*Delta2)];
+                %%Transfer Matrix
                 
                 T = Q01*P1*Q12*P2*Q2S;
                 
+                % calculating values from the transfer matrix
                 
                 Gamma = T(2,1)/T(1,1);
                 Tau = 1/T(1,1);
@@ -81,29 +99,31 @@ for Iteration  = 0:+1:MaxIteration
                 
                 Reflectance = (abs(Gamma))^2;
                 IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
-                Power = Trans * IRRAD;
-                StorePWR = [StorePWR Power];
-                BestReflec = [BestReflec Reflectance];
+                
+                Power = Trans * IRRAD; %calculating power
+                StorePWR = [StorePWR Power]; %storing this power in the storage array to be extracted later. 
+                BestReflec = [BestReflec Reflectance];%storing reflectance in the storage array to be extracted later
             end %next wavelength
-            PowerSum = sum(StorePWR);
-            StoreTotalPower = [StoreTotalPower PowerSum];
-        end
-    end
-    %%Extract power and N1,N2
+            PowerSum = sum(StorePWR); %total power
+            StoreTotalPower = [StoreTotalPower PowerSum]; %storing total power in array to look at later. 
+        end %next N2
+    end %NEXT N1
+    
+    %%Extract power and N1,N2 from this iteration
     [lowResPower, Pos] = max(StoreTotalPower);
-    LowResN1 = StoreN1(Pos);
-    LowResN2 = StoreN2(Pos);
+    LowResN1 = StoreN1(Pos);%best n1 in this range
+    LowResN2 = StoreN2(Pos); %best n2 in this range
     [highresPower, Pos] = max(StoreTotalPower);
-    bN1 = StoreN1(Pos);
-    bN2 = StoreN2(Pos);
+    bN1 = StoreN1(Pos); %value of best N1
+    bN2 = StoreN2(Pos); %value for best N2
     BESTPower = StoreTotalPower(Pos);
     
-    %reset arrays
+    %reset arrays for next iteration
     StoreN1 = [];
     StoreN2 = [];
-    StoreTotalPower = [];
+    StoreTotalPower = []; 
     
-    %change iteration perameters
+    %change iteration perameters 
     n1Start = LowResN1 - StepSize*2;
     n1End = LowResN1 + StepSize*2;
     n2Start =LowResN2 - StepSize*2;
@@ -122,7 +142,7 @@ for Iteration  = 0:+1:MaxIteration
     end
 end
 
-plot(LambdaStart:LambdaEnd,BestReflec);
+plot(LambdaStart:LambdaEnd,BestReflec); %plotting reflectance vs wavelengths
 title('Reflectivity vs Wavelength, Two Layer');
 xlabel('Wavelength') ;% x-axis label
 ylabel('Reflectivity') ;% y-axis label
