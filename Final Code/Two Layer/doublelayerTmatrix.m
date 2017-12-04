@@ -31,11 +31,16 @@ P2 = [exp(j*Delta2) 0 ; 0 exp(-j*Delta2)];
 
 
 
+T = Q01*P1*Q12*P2*Q2S;
 
-pT1= [1 -r01; r01 -1]*[1 -r12; r12 -1]*[1 r23; r23 1];
+
+pT1= [1 -r01; r01 -1]*[1 -r12; r12 -1]*[1 r23; r23 1]; %partial Tmatrix
 
 eqn = pT1(2,1) == 0;
 sol = solve(eqn, N2);
 
-disp('N2 = ')
-disp(sol(1))
+disp('N2 = ');
+disp(sol(1));
+
+disp('T = ');
+disp(simplify(T));
