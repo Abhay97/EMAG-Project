@@ -15,28 +15,20 @@ j = 1j;          %sets immaginary numbers as j
 nAIR = 1 ;    %refractive index of air
 nSolar = 3.5;   % refractive index of solar cell
 N1 = 1.4;    % refractive index layer 1
-N2 = 2.36;      %  ''             layer 2
-N3 = 3.15;
-
-c = physconst('LightSpeed'); % speed of light
-
-StoreT = [];
-StoreN2 = [];
-StoreGamma = [];
-StoreTau = [];
-StoreReflectance = [];
-LambdaC = 650;
-Lambda = 400;
-StoreLambda = [];
-StoreIRRAD  = [];
-StoreTRANS = [];
-StorePWR = [];
+N2 = 2.36;      %  computed layer 2
+N3 = 3.15;  % refractive index of layer 3
 
 
-for Lambda = 200: +1 :2200
-    StoreLambda = [StoreLambda Lambda];
-    %%%material parameters%%%
-    
+StoreN2 = []; % Storing values of N2
+StoreReflectance = []; %Storing reflectances
+LambdaC = 650; %centre wavelength
+StorePWR = []; %array to store power.
+
+LambdaStart = 200; %Wavelength were looping begins
+LambdaEnd = 2200; %ending wavelength for loop
+
+for Lambda = LambdaStart: +1 : LambdaEnd %goes through TMM at each lambda between start and end
+      
     %reflection coeffs - gamma
     r01 = (nAIR - N1)/(nAIR + N1);
     r12 = (N1 - N2)/(N1 + N2);
@@ -65,12 +57,12 @@ for Lambda = 200: +1 :2200
     Delta3 = (pi/2)*(Lambda/LambdaC);
 
         
-    %%Transfer Matrix
     P1 = [exp(j*Delta1) 0 ; 0 exp(-j*Delta1)];
     P2 = [exp(j*Delta2) 0 ; 0 exp(-j*Delta2)];
     P3 = [exp(j*Delta3) 0 ; 0 exp(-j*Delta3)];
 
-    
+    %%Transfer Matrix
+
     T = Q01*P1*Q12*P2*Q23*P3*Q3S;
     
     
@@ -78,18 +70,15 @@ for Lambda = 200: +1 :2200
     Tau = 1/T(1,1);
     Reflectance = (abs(Gamma))^2;
     
-    StoreT = [StoreT T];
-    StoreTau = [StoreTau Tau];
-    StoreGamma  = [StoreGamma Gamma];
+ 
     StoreReflectance = [StoreReflectance Reflectance];
     Trans = ((abs(Tau))^2)/(nAIR/nSolar);
     IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
-    StoreIRRAD = [StoreIRRAD IRRAD];
-
     Power = Trans * IRRAD;
     StorePWR = [StorePWR Power];
 end
-plot(StoreLambda, StoreReflectance*100);
+
+plot(LambdaStart:LambdaEnd, StoreReflectance*100);
 title('Reflectivity vs Wavelength');
 xlabel('Wavelength') ;% x-axis label
 ylabel('Reflectance, %') ;% y-axis label

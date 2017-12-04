@@ -112,30 +112,28 @@ for Iteration = 0:+1:MaxIteration %loop structe for iterations
                     IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
                     Power = Trans * IRRAD;
                     
-                    StorePWR = [StorePWR Power];%stores power in an array
-                    
-                    %%at the final iteration, it stores the reflectance
+                    StorePWR = [StorePWR Power];
+                    %                     %%at the final iteration, it stores the reflectance
                     if Iteration == 5
                         BestReflec = [BestReflec Reflectance];
                     end
                 end%goes to next wavelength
-                PowerSum = sum(StorePWR); % gets a sum of power at each wavelength, used to find total power
-                StoreTotalPower = [StoreTotalPower PowerSum]; % adds power to array.
+                PowerSum = sum(StorePWR);
+                StoreTotalPower = [StoreTotalPower PowerSum];
             end
         end
     end
     %finding power and N1,N2,N3 from the previous computations
-    %Power and Refractive indices at 'low resolution' setting
     [lowResPower, Pos] = max(StoreTotalPower);
     LowResN1 = StoreN1(Pos);
     LowResN2 = StoreN2(Pos);
     LowResN3 = StoreN3(Pos);
     [highresPower, Pos] = max(StoreTotalPower);
     
-    bN1 = StoreN1(Pos); %best N1 from calculations
-    bN2 = StoreN2(Pos); %best N2
-    bN3 = StoreN3(Pos); %Best N3
-    BESTPower = StoreTotalPower(Pos);%BEST power
+    bN1 = StoreN1(Pos);
+    bN2 = StoreN2(Pos);
+    bN3 = StoreN3(Pos);
+    BESTPower = StoreTotalPower(Pos);
     
     %reset arrays for next iteration
     StoreN1 = [];
