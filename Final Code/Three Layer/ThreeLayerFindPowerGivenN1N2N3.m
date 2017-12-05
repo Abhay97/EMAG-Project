@@ -121,7 +121,7 @@ for Lambda = LambdaStart: +1 : LambdaEnd %goes through TMM at each lambda betwee
 end
 
 plot(LambdaStart:LambdaEnd, StoreReflectance*100); %%plot relectance vs Wavelength
-title('Reflectivity vs Wavelength');
+title('Reflectance vs Wavelength');
 xlabel('Wavelength') ;% x-axis label
 ylabel('Reflectance, %') ;% y-axis label
 
