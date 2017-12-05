@@ -123,3 +123,4 @@ ylabel('Total Power') ;% y-axis label
 h = msgbox({strcat('Max power in Watts = ', num2str(StoreTotalPower(maxY))) strcat('N2 value =', num2str(StoreN2(maxY)))},'DONE!');
 
 hold on; % hold the plot for other curves
+
