@@ -103,9 +103,10 @@ for Iteration = 0:+1:MaxIteration %loop structe for iterations
                     Lthick = lambdaC/4; %
                     
                     %%Deltas
-                    Delta1 = (pi/2)*(Lambda/LambdaC);
-                    Delta2 = (pi/2)*(Lambda/LambdaC);
-                    Delta3 = (pi/2)*(Lambda/LambdaC);
+                    Delta1 = (pi/2)*(LambdaC/Lambda);
+                    Delta2 = (pi/2)*(LambdaC/Lambda);
+                    
+                    Delta3 = (pi/2)*(LambdaC/Lambda);
                     
                     
                     P1 = [exp(j*Delta1) 0 ; 0 exp(-j*Delta1)];
@@ -122,7 +123,7 @@ for Iteration = 0:+1:MaxIteration %loop structe for iterations
                     
                     Gamma = T(2,1)/T(1,1);
                     Tau = 1/T(1,1);
-                    Reflectance = (abs(Gamma))^2;                   
+                    Reflectance = (abs(Gamma))^2;
                     Trans = ((abs(Tau))^2)/(nAIR/nSolar);
                     IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
                     Power = Trans * IRRAD;

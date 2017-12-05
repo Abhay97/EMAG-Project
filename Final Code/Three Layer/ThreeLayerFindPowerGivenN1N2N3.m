@@ -2,13 +2,13 @@
 %%%% previous "ThreeLayerN2WithReflectivity
 
 %close previous windows%
-close all; 
-clc; 
-clear all; 
- 
-% UNITS 
-degrees = pi/180; 
-j = 1j;          %sets immaginary numbers as j 
+close all;
+clc;
+clear all;
+
+% UNITS
+degrees = pi/180;
+j = 1j;          %sets immaginary numbers as j
 
 
 
@@ -70,11 +70,11 @@ answer = inputdlg(prompt,name,[1 40],defaultans,options);
 N3 = str2double(cell2mat(answer))
 
 for Lambda = LambdaStart: +1 : LambdaEnd %goes through TMM at each lambda between start and end
-      
+    
     %reflection coeffs - gamma
     r01 = (nAIR - N1)/(nAIR + N1);
     r12 = (N1 - N2)/(N1 + N2);
-    r23 = (N2 - N3)/(N2 + N3); % 
+    r23 = (N2 - N3)/(N2 + N3); %
     r3S = (N3 - nSolar)/(N3 + nSolar); % to solar cell
     
     %transmission coeffs - tau
@@ -94,17 +94,18 @@ for Lambda = LambdaStart: +1 : LambdaEnd %goes through TMM at each lambda betwee
     Lthick = lambdaC/4; %
     
     %%Deltas
-    Delta1 = (pi/2)*(Lambda/LambdaC);
-    Delta2 = (pi/2)*(Lambda/LambdaC);
-    Delta3 = (pi/2)*(Lambda/LambdaC);
-
-        
+    Delta1 = (pi/2)*(LambdaC/Lambda);
+    Delta2 = (pi/2)*(LambdaC/Lambda);
+    
+    Delta3 = (pi/2)*(LambdaC/Lambda);
+    
+    
     P1 = [exp(j*Delta1) 0 ; 0 exp(-j*Delta1)];
     P2 = [exp(j*Delta2) 0 ; 0 exp(-j*Delta2)];
     P3 = [exp(j*Delta3) 0 ; 0 exp(-j*Delta3)];
-
+    
     %%Transfer Matrix
-
+    
     T = Q01*P1*Q12*P2*Q23*P3*Q3S;
     
     
@@ -112,7 +113,7 @@ for Lambda = LambdaStart: +1 : LambdaEnd %goes through TMM at each lambda betwee
     Tau = 1/T(1,1);
     Reflectance = (abs(Gamma))^2;
     
- 
+    
     StoreReflectance = [StoreReflectance Reflectance]; %array that stores all the reflectance values
     Trans = ((abs(Tau))^2)/(nAIR/nSolar); %compute transmitance
     IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1)); %computate irradiance

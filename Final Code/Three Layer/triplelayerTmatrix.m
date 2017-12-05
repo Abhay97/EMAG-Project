@@ -24,9 +24,10 @@ lambdaC = 650;  %nm centre wavelength
 Lthick = lambdaC/4; %
 
 %%Deltas
-Delta1 = (pi/2)*(Lambda/LambdaC);
-Delta2 = (pi/2)*(Lambda/LambdaC);
-Delta3 = (pi/2)*(Lambda/LambdaC);
+Delta1 = (pi/2)*(LambdaC/Lambda);
+Delta2 = (pi/2)*(LambdaC/Lambda);
+
+Delta3 = (pi/2)*(LambdaC/Lambda);
 
 
 P1 = [exp(j*Delta1) 0 ; 0 exp(-j*Delta1)];

@@ -81,8 +81,8 @@ for Iteration  = 0:+1:MaxIteration %loop structure for for multiple iterations
                 Lthick = lambdaC/4; %quarter wavelength.
                 
                 %%Deltas
-                Delta1 = (pi/2)*(Lambda/LambdaC);
-                Delta2 = (pi/2)*(Lambda/LambdaC);
+                Delta1 = (pi/2)*(LambdaC/Lambda);
+                Delta2 = (pi/2)*(LambdaC/Lambda);
                 
                 
                 P1 = [exp(j*Delta1) 0 ; 0 exp(-j*Delta1)];
@@ -101,11 +101,11 @@ for Iteration  = 0:+1:MaxIteration %loop structure for for multiple iterations
                 IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
                 
                 Power = Trans * IRRAD; %calculating power
-                StorePWR = [StorePWR Power]; %storing this power in the storage array to be extracted later. 
+                StorePWR = [StorePWR Power]; %storing this power in the storage array to be extracted later.
                 BestReflec = [BestReflec Reflectance];%storing reflectance in the storage array to be extracted later
             end %next wavelength
             PowerSum = sum(StorePWR); %total power
-            StoreTotalPower = [StoreTotalPower PowerSum]; %storing total power in array to look at later. 
+            StoreTotalPower = [StoreTotalPower PowerSum]; %storing total power in array to look at later.
         end %next N2
     end %NEXT N1
     
@@ -122,10 +122,10 @@ for Iteration  = 0:+1:MaxIteration %loop structure for for multiple iterations
         %reset arrays for next iteration
         StoreN1 = [];
         StoreN2 = [];
-        StoreTotalPower = []; 
+        StoreTotalPower = [];
     end
     
-    %change iteration perameters 
+    %change iteration perameters
     n1Start = LowResN1 - StepSize*2;
     n1End = LowResN1 + StepSize*2;
     n2Start =LowResN2 - StepSize*2;

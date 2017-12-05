@@ -78,9 +78,11 @@ for N2 = 1: +0.01: 3 %loop structe for varying N2
         Lthick = lambdaC/4; %
         
         %%Deltas
-        Delta1 = (pi/2)*(Lambda/LambdaC);
-        Delta2 = (pi/2)*(Lambda/LambdaC);
-        Delta3 = (pi/2)*(Lambda/LambdaC);
+        Delta1 = (pi/2)*(LambdaC/Lambda);
+        Delta2 = (pi/2)*(LambdaC/Lambda);
+        
+        Delta3 = (pi/2)*(LambdaC/Lambda);
+
         
         
         P1 = [exp(j*Delta1) 0 ; 0 exp(-j*Delta1)];

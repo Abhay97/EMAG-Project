@@ -85,8 +85,8 @@ for Lambda = LambdaStart: +1 :LambdaEnd %loop structure for varying lambda
     lambdaC = 650;  %nm centre wavelength
     Lthick = lambdaC/4; %layer thickness
     
-    Delta1 = (pi/2)*(Lambda/LambdaC);
-    Delta2 = (pi/2)*(Lambda/LambdaC);
+    Delta1 = (pi/2)*(LambdaC/Lambda);
+    Delta2 = (pi/2)*(LambdaC/Lambda);
     
     
     %%Transfer Matrix

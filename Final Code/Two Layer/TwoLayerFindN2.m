@@ -61,8 +61,6 @@ while N2 < 4.5 %loop structure for varying N2
     Tau = 1/T(1,1);
     Reflectance = (abs(Gamma))^2;
     Trans = ((abs(Tau))^2)/(nAIR/nSolar);
-    IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
-    Power = Trans * IRRAD;
     
     
     StoreReflectance = [StoreReflectance Reflectance];
