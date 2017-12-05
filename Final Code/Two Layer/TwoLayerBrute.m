@@ -118,10 +118,12 @@ for Iteration  = 0:+1:MaxIteration %loop structure for for multiple iterations
     bN2 = StoreN2(Pos); %value for best N2
     BESTPower = StoreTotalPower(Pos);
     
-    %reset arrays for next iteration
-    StoreN1 = [];
-    StoreN2 = [];
-    StoreTotalPower = []; 
+    if Iteration <5
+        %reset arrays for next iteration
+        StoreN1 = [];
+        StoreN2 = [];
+        StoreTotalPower = []; 
+    end
     
     %change iteration perameters 
     n1Start = LowResN1 - StepSize*2;
@@ -142,6 +144,7 @@ for Iteration  = 0:+1:MaxIteration %loop structure for for multiple iterations
     end
 end
 
+figure(1)
 plot(LambdaStart:LambdaEnd,BestReflec*100); %plotting reflectance vs wavelengths
 title('Reflectivity vs Wavelength, Two Layer');
 xlabel('Wavelength') ;% x-axis label

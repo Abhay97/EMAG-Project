@@ -18,7 +18,7 @@ N2 = 0.01;      %  ''             layer 2
 
 StoreN2 = []; %storage array for N2
 StoreReflectance = []; %storage array for reflectances
-
+StorePower =[];
 
 while N2 < 4.5 %loop structure for varying N2
     
@@ -60,6 +60,9 @@ while N2 < 4.5 %loop structure for varying N2
     Gamma = T(2,1)/T(1,1);
     Tau = 1/T(1,1);
     Reflectance = (abs(Gamma))^2;
+    Trans = ((abs(Tau))^2)/(nAIR/nSolar);
+    IRRAD = (6.16*10^15)/(((Lambda)^5)*(exp(2484/Lambda)-1));
+    Power = Trans * IRRAD;
     
     
     StoreReflectance = [StoreReflectance Reflectance];
@@ -67,6 +70,7 @@ while N2 < 4.5 %loop structure for varying N2
     N2 = N2+0.01; % increase N2 by 0.01
 end
 
+figure (1)
 [MinX,MinY] = min(StoreReflectance);% finding the minimum reflectance, and the location of that in the array. Location of this value will match with that of the best N2 value.
 plot(StoreN2, StoreReflectance);
 title('optimal N2 at lambdaC  = 650');
@@ -77,4 +81,4 @@ minN2 = StoreN2(MinY);
 a = num2str(minN2);
 b= 'Minimum Reflectance found at N2 = ' ;
 
-h = msgbox({strcat(b,a)  strcat('When N1 is kept at  ', num2str(N1))},'DONE!');
+h = msgbox({strcat(b,a)  strcat('When N1 is kept at  +', num2str(N1))},'DONE!');
